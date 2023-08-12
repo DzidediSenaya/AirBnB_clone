@@ -5,6 +5,7 @@ import models
 from models.base_model import BaseModel
 from models.user import User
 
+
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
     __file_path = "file.json"
@@ -39,6 +40,7 @@ class FileStorage:
                 if type(value) == cls:
                     cls_objects[key] = value
             return cls_objects
+
 
 # Initialize FileStorage instance
 storage = FileStorage()
