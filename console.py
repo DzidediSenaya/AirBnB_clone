@@ -48,12 +48,12 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        try:
-            new_instance = eval(arg)()
-            new_instance.save()
-            print(new_instance.id)
-        except:
-            print("** class doesn't exist **")
+       try:
+    new_instance = eval(arg)()
+    new_instance.save()
+    print(new_instance.id)
+except NameError:
+    print("** class doesn't exist **")
 
     def do_show(self, arg):
         """
@@ -185,10 +185,10 @@ class HBNBCommand(cmd.Cmd):
             return
         instance = storage.all()[key]
         try:
-            new_dict = eval(args[2])
-        except:
-            print("** invalid dictionary format **")
-            return
+    new_dict = eval(args[2])
+except SyntaxError:
+    print("** invalid dictionary format **")
+    return
         for k, v in new_dict.items():
             setattr(instance, k, v)
         instance.save()
