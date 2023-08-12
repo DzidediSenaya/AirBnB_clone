@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-     def do_create(self, arg):
+    def do_create(self, arg):
         """
         Creates a new instance of BaseModel, saves it (to the JSON file)
         and prints the id.
@@ -176,10 +176,10 @@ class HBNBCommand(cmd.Cmd):
             return
         instance = storage.all()[key]
         try:
-    new_dict = eval(args[2])
-except SyntaxError:
-    print("** invalid dictionary format **")
-    return
+            new_dict = eval(args[2])
+        except SyntaxError:
+            print("** invalid dictionary format **")
+            return
         for k, v in new_dict.items():
             setattr(instance, k, v)
         instance.save()
