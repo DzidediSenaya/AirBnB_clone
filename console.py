@@ -3,6 +3,7 @@
 Command interpreter entry point.
 """
 import cmd
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -10,16 +11,6 @@ class HBNBCommand(cmd.Cmd):
     Custom command interpreter class.
     """
     prompt = '(hbnb) '
-
-    valid_classes = {
-        "BaseModel": BaseModel,
-        "User": User,
-        "State": State,
-        "City": City,
-        "Amenity": Amenity,
-        "Place": Place,
-        "Review": Review
-    }
 
     def do_quit(self, arg):
         """
@@ -40,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    def do_create(self, arg):
+     def do_create(self, arg):
         """
         Creates a new instance of BaseModel, saves it (to the JSON file)
         and prints the id.
@@ -48,12 +39,12 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-       try:
-    new_instance = eval(arg)()
-    new_instance.save()
-    print(new_instance.id)
-except NameError:
-    print("** class doesn't exist **")
+        try:
+            new_instance = eval(arg)()
+            new_instance.save()
+            print(new_instance.id)
+        except NameError:
+            print("** class doesn't exist **")
 
     def do_show(self, arg):
         """
