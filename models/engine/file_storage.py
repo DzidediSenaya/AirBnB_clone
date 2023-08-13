@@ -41,7 +41,7 @@ class FileStorage:
         else:
             cls_objects = {}
             for key, value in self.__objects.items():
-                if type(value) == cls:
+                if isinstance(value, cls):
                     cls_objects[key] = value
             return cls_objects
 
