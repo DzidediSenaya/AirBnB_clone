@@ -41,6 +41,10 @@ class FileStorage:
                     cls_objects[key] = value
             return cls_objects
 
+    def reload(self):
+        """Reloads objects from the JSON file"""
+        self.deserialize()
+
 
 # Initialize FileStorage instance
 storage = FileStorage()

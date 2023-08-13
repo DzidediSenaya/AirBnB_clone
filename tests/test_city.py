@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """Test cases for City class"""
-
 import unittest
 from models.city import City
+from models import storage
+
 
 class TestCity(unittest.TestCase):
     """Test cases for City class"""
@@ -12,6 +13,7 @@ class TestCity(unittest.TestCase):
         city = City()
         self.assertEqual(city.state_id, "")
         self.assertEqual(city.name, "")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """Test cases for Review class"""
-
 import unittest
 from models.review import Review
+from models import storage
+
 
 class TestReview(unittest.TestCase):
     """Test cases for Review class"""
@@ -13,6 +14,7 @@ class TestReview(unittest.TestCase):
         self.assertEqual(review.place_id, "")
         self.assertEqual(review.user_id, "")
         self.assertEqual(review.text, "")
+
 
 if __name__ == "__main__":
     unittest.main()

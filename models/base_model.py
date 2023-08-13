@@ -48,8 +48,12 @@ class BaseModel:
         """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = self.created_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        obj_dict['updated_at'] = self.updated_at.strftime('%Y-%m-%dT%H:%M:%S.%f')
+        obj_dict['created_at'] = self.created_at.strftime(
+            '%Y-%m-%dT%H:%M:%S.%f'
+        )
+        obj_dict['updated_at'] = self.updated_at.strftime(
+            '%Y-%m-%dT%H:%M:%S.%f'
+        )
         return obj_dict
 
     def __str__(self):
@@ -57,6 +61,11 @@ class BaseModel:
         Returns a string representation of the instance.
 
         Returns:
-            str: A formatted string containing class name, ID, and attributes.
+            str: A formatted string containing class name,
+            ID, and attributes.
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(
+            self.__class__.__name__,
+            self.id,
+            self.__dict__
+            )

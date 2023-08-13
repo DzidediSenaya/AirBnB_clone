@@ -2,9 +2,10 @@
 """
 This module contains test cases for the BaseModel class and its methods.
 """
-
 import unittest
 from models.base_model import BaseModel
+from models import storage
+
 
 class TestBaseModel(unittest.TestCase):
     """
@@ -62,6 +63,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(my_model.name, new_model.name)
         self.assertEqual(my_model.my_number, new_model.my_number)
 
+
 if __name__ == '__main__':
     unittest.main()
-
