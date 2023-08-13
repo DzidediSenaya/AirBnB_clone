@@ -4,7 +4,6 @@ Command interpreter entry point.
 """
 import cmd
 from models import storage
-import json
 
 
 class HBNBCommand(cmd.Cmd):
@@ -184,37 +183,6 @@ class HBNBCommand(cmd.Cmd):
         for k, v in new_dict.items():
             setattr(instance, k, v)
         instance.save()
-
-    def do_update_dict(self, arg):
-        """
-        Updates an instance based on the class name and id with a dictionary.
-        """
-    args = arg.split()
-    if not args:
-        print("** class name missing **")
-        return
-    if args[0] not in storage.classes.keys():
-        print("** class doesn't exist **")
-        return
-    if len(args) < 2:
-        print("** instance id missing **")
-        return
-    key = args[0] + "." + args[1]
-    if key not in storage.all():
-        print("** no instance found **")
-        return
-    if len(args) < 3:
-        print("** dictionary missing **")
-        return
-    instance = storage.all()[key]
-    try:
-        new_dict = json.loads(args[2])
-    except json.JSONDecodeError:
-        print("** invalid dictionary format **")
-        return
-    for k, v in new_dict.items():
-        setattr(instance, k, v)
-    instance.save()
 
 
 if __name__ == '__main__':
