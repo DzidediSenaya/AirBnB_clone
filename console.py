@@ -154,7 +154,7 @@ class HBNBCommand(cmd.Cmd):
                 count += 1
         print(count)
 
-  def do_update_dict(self, arg):
+    def do_update_dict(self, arg):
         """
         Updates an instance based on the class name and id with a dictionary.
         """
@@ -185,10 +185,10 @@ class HBNBCommand(cmd.Cmd):
             setattr(instance, k, v)
         instance.save()
 
-  def do_update_dict(self, arg):
-    """
-    Updates an instance based on the class name and id with a dictionary.
-    """
+    def do_update_dict(self, arg):
+        """
+        Updates an instance based on the class name and id with a dictionary.
+        """
     args = arg.split()
     if not args:
         print("** class name missing **")
