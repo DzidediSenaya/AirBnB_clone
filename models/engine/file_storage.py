@@ -49,6 +49,19 @@ class FileStorage:
         """Reloads objects from the JSON file"""
         self.deserialize()
 
+    def new(self, obj):
+        """
+        Adds a new object to __objects
+        """
+        key = "{}.{}".format(type(obj).__name__, obj.id)
+        self.__objects[key] = obj
+
+    def save(self):
+        """
+        Serializes __objects to the JSON file
+        """
+        self.serialize()
+
 
 # Initialize FileStorage instance
 storage = FileStorage()
