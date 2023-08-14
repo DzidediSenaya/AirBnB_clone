@@ -98,6 +98,7 @@ class HBNBCommand(cmd.Cmd):
             return
         del obj_dict[obj_key]
         storage.save()
+        print("OK")
 
     def do_all(self, arg):
         """Usage: all or all <class>
@@ -113,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
             return
-        print(obj_list)
+        print("\n".join(obj_list))
 
     def do_count(self, arg):
         """Usage: count <class>
@@ -154,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
         obj = obj_dict[obj_key]
         setattr(obj, args[2], args[3])
         storage.save()
-
+        print("OK")
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
