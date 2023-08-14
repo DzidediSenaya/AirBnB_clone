@@ -99,7 +99,7 @@ class HBNBCommand(cmd.Cmd):
         del obj_dict[obj_key]
         storage.save()
 
-   def do_all(self, arg):
+    def do_all(self, arg):
     """Usage: all or all <class>
     Display string representations of all instances of a given class.
     If no class is specified, displays all instantiated objects."""
