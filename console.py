@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         obj_key = "{}.{}".format(args[0], args[1])
         obj = storage.all().get(obj_key)
         if obj is None:
-            print("** no instance found **")
+            print("OK")
             return
         print(obj)
 
@@ -144,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
         obj_key = "{}.{}".format(args[0], args[1])
         obj_dict = storage.all()
         if obj_key not in obj_dict:
-            print("** no instance found **")
+            print("** attribute name missing **")
             return
         if len(args) < 3:
             print("** attribute name missing **")
