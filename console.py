@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         obj_key = "{}.{}".format(args[0], args[1])
         obj = storage.all().get(obj_key)
         if obj is None:
-            print("OK")
+            print("** attribute name missing **")
             return
         print(obj)
 
@@ -98,7 +98,6 @@ class HBNBCommand(cmd.Cmd):
             return
         del obj_dict[obj_key]
         storage.save()
-        print("OK")
 
     def do_all(self, arg):
         """Usage: all or all <class>
@@ -114,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
             return
-        print("\n".join(obj_list))
+        print(obj_list)
 
     def do_count(self, arg):
         """Usage: count <class>
@@ -144,7 +143,7 @@ class HBNBCommand(cmd.Cmd):
         obj_key = "{}.{}".format(args[0], args[1])
         obj_dict = storage.all()
         if obj_key not in obj_dict:
-            print("** attribute name missing **")
+            print("** value missing **")
             return
         if len(args) < 3:
             print("** attribute name missing **")
@@ -155,7 +154,7 @@ class HBNBCommand(cmd.Cmd):
         obj = obj_dict[obj_key]
         setattr(obj, args[2], args[3])
         storage.save()
-        print("OK")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
