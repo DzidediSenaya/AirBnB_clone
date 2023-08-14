@@ -123,47 +123,33 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, arg):
-    """Usage: update <class> <id> <attribute_name> <attribute_value>
-    Update a class instance of a given id by adding or updating
-    a given attribute key/value pair."""
-    args = arg.split()
-    if not args:
-        print("** class name missing **")
-        return
-    if args[0] not in HBNBCommand.classes:
-        print("** class doesn't exist **")
-        return
-    if len(args) < 2:
-        print("** instance id missing **")
-        return
-    obj_key = "{}.{}".format(args[0], args[1])
-    obj_dict = storage.all()
-    if obj_key not in obj_dict:
-        print("** no instance found **")
-        return
-    if len(args) < 3:
-        print("** attribute name missing **")
-        return
-    if len(args) < 4:
-        print("** value missing **")
-        return
-    obj = obj_dict[obj_key]
-    attr_name = args[2]
-    attr_value = args[3]
-    
-    # Convert the attribute value to the correct data type
-    cls = HBNBCommand.classes[args[0]]
-    if attr_name in cls.__dict__:
-        attr_type = type(cls.__dict__[attr_name])
-        if attr_type == int:
-            attr_value = int(attr_value)
-        elif attr_type == float:
-            attr_value = float(attr_value)
-        elif attr_type == bool:
-            attr_value = attr_value.lower() == "true"
-    
-    setattr(obj, attr_name, attr_value)
-    storage.save()
+        """Usage: update <class> <id> <attribute_name> <attribute_value>
+        Update a class instance of a given id by adding or updating
+        a given attribute key/value pair."""
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+            return
+        if args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+        obj_key = "{}.{}".format(args[0], args[1])
+        obj_dict = storage.all()
+        if obj_key not in obj_dict:
+            print("** no instance found **")
+            return
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+        if len(args) < 4:
+            print("** value missing **")
+            return
+        obj = obj_dict[obj_key]
+        setattr(obj, args[2], args[3])
+        storage.save()
 
 
 if __name__ == "__main__":
