@@ -4,8 +4,6 @@ Command interpreter entry point.
 """
 import cmd
 import models
-import re
-from shlex import split
 
 
 class HBNBCommand(cmd.Cmd):
