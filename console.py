@@ -43,6 +43,23 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
+    def _get_obj_by_id(self, class_name, obj_id):
+        """Retrieve object by class name and id."""
+        obj_key = "{}.{}".format(class_name, obj_id)
+        obj_dict = storage.all()
+        return obj_dict.get(obj_key)
+
+    def _print_instances(self, class_name=None):
+        """Print string representations of instances."""
+        obj_dict = storage.all()
+        if class_name:
+            class_type = HBNBCommand.classes.get(class_name)
+            obj_list = [str(obj) for obj in obj_dict.values()
+                        if isinstance(obj, class_type)]
+        else:
+            obj_list = [str(obj) for obj in obj_dict.values()]
+        print(obj_list)
+
     def do_create(self, arg):
         """Usage: create <class>
         Create a new class instance and print its id.
@@ -50,10 +67,11 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        if arg not in HBNBCommand.classes:
+        class_name = arg
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        instance = HBNBCommand.classes[arg]()
+        instance = HBNBCommand.classes[class_name]()
         instance.save()
         print(instance.id)
 
@@ -65,14 +83,15 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        if args[0] not in HBNBCommand.classes:
+        class_name = args[0]
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
             print("** instance id missing **")
             return
-        obj_key = "{}.{}".format(args[0], args[1])
-        obj = storage.all().get(obj_key)
+        obj_id = args[1]
+        obj = self._get_obj_by_id(class_name, obj_id)
         if obj is None:
             print("** no instance found **")
             return
@@ -85,41 +104,38 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        if args[0] not in HBNBCommand.classes:
+        class_name = args[0]
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
             print("** instance id missing **")
             return
-        obj_key = "{}.{}".format(args[0], args[1])
-        obj_dict = storage.all()
-        if obj_key not in obj_dict:
+        obj_id = args[1]
+        obj = self._get_obj_by_id(class_name, obj_id)
+        if obj is None:
             print("** no instance found **")
             return
-        del obj_dict[obj_key]
+        del storage.all()["{}.{}".format(class_name, obj_id)]
         storage.save()
 
     def do_all(self, arg):
         """Usage: all or all <class>
         Display string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
-        obj_dict = storage.all()
         if not arg:
-            obj_list = [str(obj) for obj in obj_dict.values()]
+            self._print_instances()
         elif arg in HBNBCommand.classes:
-            class_type = HBNBCommand.classes[arg]
-            obj_list = [str(obj) for obj in obj_dict.values()
-                        if isinstance(obj, class_type)]
+            self._print_instances(arg)
         else:
             print("** class doesn't exist **")
-            return
-        print(obj_list)
 
     def do_count(self, arg):
         """Usage: count <class>
         Retrieve the number of instances of a given class."""
         if arg in HBNBCommand.classes:
-            class_type = HBNBCommand.classes[arg]
+            class_name = arg
+            class_type = HBNBCommand.classes[class_name]
             obj_count = sum(1 for obj in storage.all().values()
                             if isinstance(obj, class_type))
             print(obj_count)
@@ -134,15 +150,16 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        if args[0] not in HBNBCommand.classes:
+        class_name = args[0]
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
             print("** instance id missing **")
             return
-        obj_key = "{}.{}".format(args[0], args[1])
-        obj_dict = storage.all()
-        if obj_key not in obj_dict:
+        obj_id = args[1]
+        obj = self._get_obj_by_id(class_name, obj_id)
+        if obj is None:
             print("** no instance found **")
             return
         if len(args) < 3:
@@ -151,8 +168,8 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 4:
             print("** value missing **")
             return
-        obj = obj_dict[obj_key]
-        setattr(obj, args[2], args[3])
+        attr_name, attr_value = args[2], args[3]
+        setattr(obj, attr_name, attr_value)
         storage.save()
 
 
