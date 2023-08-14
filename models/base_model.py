@@ -2,12 +2,15 @@
 """
 This module defines the BaseModel class.
 """
-
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
-    """A base class that defines common attributes and methods for other classes."""
+    """
+    A base class that defines common attributes
+    and methods for other classes.
+    """
 
     def __init__(self, *args, **kwargs):
         """Initialize instance attributes."""
@@ -29,7 +32,10 @@ class BaseModel:
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
 
     def save(self):
-        """Update the public instance attribute 'updated_at' with the current datetime."""
+        """
+        Update the public instance attribute
+        'updated_at' with the current datetime.
+        """
         self.updated_at = datetime.now()
 
     def to_dict(self):
@@ -40,7 +46,7 @@ class BaseModel:
         instance_dict['updated_at'] = self.updated_at.isoformat()
         return instance_dict
 
-# Test code
+
 if __name__ == "__main__":
     my_model = BaseModel()
     my_model.name = "My First Model"
@@ -53,4 +59,4 @@ if __name__ == "__main__":
     print("JSON of my_model:")
     for key in my_model_json.keys():
         print("\t{}: ({}) - {}".format(key, type(my_model_json[key]),
-                                      my_model_json[key]))
+                                       my_model_json[key]))
