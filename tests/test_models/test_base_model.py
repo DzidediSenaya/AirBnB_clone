@@ -5,8 +5,8 @@ This module contains test cases for the BaseModel class and its methods.
 
 import unittest
 from datetime import datetime
-from models import storage
 from models.base_model import BaseModel
+import os
 
 
 class TestBaseModel(unittest.TestCase):
