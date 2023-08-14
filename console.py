@@ -99,28 +99,33 @@ class HBNBCommand(cmd.Cmd):
         del obj_dict[obj_key]
         storage.save()
 
-    def do_all(self, arg):
-        """Usage: all or all <class>
-        Display string representations of all instances of a given class.
-        If no class is specified, displays all instantiated objects."""
-        obj_dict = storage.all()
-        if not arg:
-            obj_list = [str(obj) for obj in obj_dict.values()]
-        elif arg in HBNBCommand.classes:
-            obj_list = [str(obj) for obj in obj_dict.values() if isinstance(obj, HBNBCommand.classes[arg])]
-        else:
-            print("** class doesn't exist **")
-            return
-        print(obj_list)
+   def do_all(self, arg):
+    """Usage: all or all <class>
+    Display string representations of all instances of a given class.
+    If no class is specified, displays all instantiated objects."""
+    obj_dict = storage.all()
+    if not arg:
+        obj_list = [str(obj) for obj in obj_dict.values()]
+    elif arg in HBNBCommand.classes:
+        class_type = HBNBCommand.classes[arg]
+        obj_list = [
+            str(obj) for obj in obj_dict.values() if isinstance(obj, class_type)
+        ]
+    else:
+        print("** class doesn't exist **")
+        return
+    print(obj_list)
 
-    def do_count(self, arg):
-        """Usage: count <class>
-        Retrieve the number of instances of a given class."""
-        if arg in HBNBCommand.classes:
-            obj_list = [obj for obj in storage.all().values() if isinstance(obj, HBNBCommand.classes[arg])]
-            print(len(obj_list))
-        else:
-            print("** class doesn't exist **")
+   def do_count(self, arg):
+    """Usage: count <class>
+    Retrieve the number of instances of a given class."""
+    if arg in HBNBCommand.classes:
+        class_type = HBNBCommand.classes[arg]
+        obj_count = sum(1 for obj in storage.all().values()
+                        if isinstance(obj, class_type))
+        print(obj_count)
+    else:
+        print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Usage: update <class> <id> <attribute_name> <attribute_value>
