@@ -5,7 +5,10 @@ import os
 
 
 class FileStorage:
-    """A class for serializing and deserializing instances to/from a JSON file."""
+    """
+    A class for serializing and deserializing
+    instances to/from a JSON file.
+    """
 
     __file_path = "file.json"
     __objects = {}
@@ -25,7 +28,6 @@ class FileStorage:
         objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
         with open(FileStorage.__file_path, "w") as f:
             json.dump(objdict, f)
-
 
     def reload(self):
         """Deserialize the JSON file to __objects."""
