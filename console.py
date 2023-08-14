@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the HBnB console."""
+"""Command interpreter entry point."""
 import cmd
 import re
 from models import storage
