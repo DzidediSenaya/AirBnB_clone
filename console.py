@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     
-    def default(self, arg):
+      def default(self, arg):
         argdict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -54,16 +54,12 @@ class HBNBCommand(cmd.Cmd):
             "count": self.do_count,
             "update": self.do_update
         }
-        match = re.search(r"\.", arg)
-        if match is not None:
-            dot_index = match.span()[0]
-            argl = [arg[:dot_index], arg[dot_index + 1:]]
-            if "(" in argl[1] and argl[1].endswith(")"):
-                method_name, args = argl[1].split("(")
-                args = args.rstrip(")")
-                if method_name in argdict.keys():
-                    call = "{} {}".format(argl[0], args)
-                    return argdict[method_name](call)
+        match = re.search(r"([a-zA-Z_][a-zA-Z_0-9]*)\.", arg)
+        if match:
+            method_name = match.group(1)
+            if method_name in argdict:
+                method_call = arg[len(method_name) + 1:]
+                return argdict[method_name](method_call)
         print("*** Unknown syntax: {}".format(arg))
         return False
         
