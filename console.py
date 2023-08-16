@@ -45,6 +45,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
 
+    
     def default(self, arg):
         argdict = {
             "all": self.do_all,
@@ -55,16 +56,17 @@ class HBNBCommand(cmd.Cmd):
         }
         match = re.search(r"\.", arg)
         if match is not None:
-            argl = [arg[:match.span()[0]], arg[match.span()[1]:]]
-            match = re.search(r"\((.*?)\)", argl[1])
-            if match is not None:
-                command = [argl[1][:match.span()[0]], match.group()[1:-1]]
-                if command[0] in argdict.keys():
-                    call = "{} {}".format(argl[0], command[1])
-                    return argdict[command[0]](call)
+            dot_index = match.span()[0]
+            argl = [arg[:dot_index], arg[dot_index + 1:]]
+            if "(" in argl[1] and argl[1].endswith(")"):
+                method_name, args = argl[1].split("(")
+                args = args.rstrip(")")
+                if method_name in argdict.keys():
+                    call = "{} {}".format(argl[0], args)
+                    return argdict[method_name](call)
         print("*** Unknown syntax: {}".format(arg))
         return False
-
+        
     def do_quit(self, arg):
         return True
 
