@@ -1,0 +1,12 @@
+/* Common styles */
+body {
+  font-family: "Circular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #484848;
+}
+
+/* Additional accessibility styles */
+a,
+button {
+  cursor: pointer;
+}
