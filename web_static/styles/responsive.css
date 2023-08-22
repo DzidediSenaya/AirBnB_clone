@@ -1,0 +1,36 @@
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .container {
+    margin: 10px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .locations,
+  .amenities {
+    width: 100%;
+    border-right: none;
+    margin-bottom: 10px;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  .places {
+    justify-content: center;
+  }
+
+  .place {
+    flex-basis: calc(50% - 40px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .place {
+    flex-basis: 100%;
+  }
+}
